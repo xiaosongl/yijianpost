@@ -32,7 +32,7 @@ PMTA_BIN="/usr/sbin"
 WORK_DIR="/tmp/pmta_install_$$"
 
 # GitHub Release 默认下载地址（可在菜单中修改）
-DEFAULT_DOWNLOAD_URL="https://github.com/你的用户名/你的仓库/releases/latest/download/PMTA.tar.gz"
+DEFAULT_DOWNLOAD_URL="https://github.com/xiaosongl/yijianpost/releases/latest/download/PMTA.tar.gz"
 
 # ══════════════════════════════════════════════════════════════
 #  root 检查
@@ -185,7 +185,7 @@ menu_config() {
     title "修改部署配置"
     echo ""
     echo -e "  当前配置:"
-    echo -e "    下载地址 : ${C}${DOWNLOAD_URL}${N}"
+    echo -e "    安装包   : ${C}${DOWNLOAD_URL}${N}"
     echo -e "    主域名   : ${C}${DOMAIN:-未设置}${N}"
     echo -e "    邮件前缀 : ${C}${MAIL_PREFIX}${N}  →  ${C}${MAIL_PREFIX}.${DOMAIN:-example.com}${N}"
     echo -e "    服务器IP : ${C}${SERVER_IP}${N}"
@@ -195,7 +195,6 @@ menu_config() {
     sep
     echo ""
 
-    input_field "PMTA 压缩包下载地址" DOWNLOAD_URL "$DOWNLOAD_URL"
     input_field "主域名 (如 example.com)" DOMAIN "$DOMAIN"
     input_field "邮件子域名前缀 (如 mail → mail.example.com)" MAIL_PREFIX "$MAIL_PREFIX"
     input_field "服务器公网 IP" SERVER_IP "$SERVER_IP"
@@ -229,13 +228,6 @@ menu_install() {
     echo -e "    主域名   : ${C}${DOMAIN:-（安装后配置）}${N}"
     echo -e "    服务器IP : ${C}${SERVER_IP}${N}"
     echo ""
-
-    if [[ "$DOWNLOAD_URL" == "$DEFAULT_DOWNLOAD_URL" ]]; then
-        warn "下载地址仍为默认值，请先在【修改部署配置】中设置正确的下载地址"
-        if ! confirm "仍然继续？"; then
-            press_any_key; return
-        fi
-    fi
 
     if ! confirm "确认开始安装？"; then
         press_any_key; return
